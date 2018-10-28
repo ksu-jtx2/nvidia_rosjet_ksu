@@ -5,22 +5,8 @@ import csv
 import datetime
 import os
 
-def filename_check(filename_path):
-    """
-    Get the path to a filename which does not exist by incrementing path.
-    """
-    if not os.path.exists(filename_path):
-        return filename_path
-    filename, file_extension = os.path.splittext(filename_path)
-    i = 1
-    new_filename = "{}-{}{}".format(filename, i, file_extension)
-    while os.path.exists(new_filename):
-        i+= 1
-        new_filename = "{}-{}{}".format(filename, i, file_extension)
-        return new_filename
     
-    
-filename = datetime.datetime.now().strftime("data_%Y-%m-%d.csv") #Define the filename
+filename = datetime.datetime.now().strftime("data_%Y-%m-%d-%h-%m.csv") #Define the filename
 
 with open(filename, mode='w') as f:
     reader = csv.reader(f)
