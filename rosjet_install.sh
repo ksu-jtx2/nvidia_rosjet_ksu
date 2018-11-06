@@ -20,42 +20,42 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt
 wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 
-#Ros Jade Base
-sudo apt-get -y install ros-jade-ros-base
+#Ros kinetic Base
+sudo apt-get -y install ros-kinetic-ros-base
 
 #Python Dependencies
 sudo apt-get -y install python-rosdep python-dev python-pip python-rosinstall python-wstool
 
 sudo rosdep init
 rosdep update
-echo "source /opt/ros/jade/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 #Ros packages
-sudo apt-get -y install ros-jade-rosserial-arduino
-sudo apt-get -y install ros-jade-rosserial
-sudo apt-get -y install ros-jade-eigen-conversions
-sudo apt-get -y install ros-jade-tf2-geometry-msgs
-sudo apt-get -y install ros-jade-angles
-sudo apt-get -y install ros-jade-web-video-server
-sudo apt-get -y install ros-jade-rosbridge-suite
-sudo apt-get -y install ros-jade-rospy-tutorials
-sudo apt-get -y install ros-jade-joy
-sudo apt-get -y install ros-jade-teleop-twist-joy
-sudo apt-get -y install ros-jade-roslint
-sudo apt-get -y install ros-jade-controller-manager
-sudo apt-get -y install ros-jade-camera-calibration-parsers
-sudo apt-get -y install ros-jade-xacro
-sudo apt-get -y install ros-jade-robot-state-publisher
-sudo apt-get -y install ros-jade-diff-drive-controller
-sudo apt-get -y install ros-jade-usb-cam
-sudo apt-get -y install ros-jade-ros-control
-sudo apt-get -y install ros-jade-dynamic-reconfigure
-sudo apt-get -y install ros-jade-fake-localization
-sudo apt-get -y install ros-jade-joint-state-controller
+sudo apt-get -y install ros-kinetic-rosserial-arduino
+sudo apt-get -y install ros-kinetic-rosserial
+sudo apt-get -y install ros-kinetic-eigen-conversions
+sudo apt-get -y install ros-kinetic-tf2-geometry-msgs
+sudo apt-get -y install ros-kinetic-angles
+sudo apt-get -y install ros-kinetic-web-video-server
+sudo apt-get -y install ros-kinetic-rosbridge-suite
+sudo apt-get -y install ros-kinetic-rospy-tutorials
+sudo apt-get -y install ros-kinetic-joy
+sudo apt-get -y install ros-kinetic-teleop-twist-joy
+sudo apt-get -y install ros-kinetic-roslint
+sudo apt-get -y install ros-kinetic-controller-manager
+sudo apt-get -y install ros-kinetic-camera-calibration-parsers
+sudo apt-get -y install ros-kinetic-xacro
+sudo apt-get -y install ros-kinetic-robot-state-publisher
+sudo apt-get -y install ros-kinetic-diff-drive-controller
+sudo apt-get -y install ros-kinetic-usb-cam
+sudo apt-get -y install ros-kinetic-ros-control
+sudo apt-get -y install ros-kinetic-dynamic-reconfigure
+sudo apt-get -y install ros-kinetic-fake-localization
+sudo apt-get -y install ros-kinetic-joint-state-controller
 
 # Configure Catkin Workspace
-source /opt/ros/jade/setup.bash
+source /opt/ros/kinetic/setup.bash
 cd ~/catkin_ws/src
 catkin_init_workspace
 
