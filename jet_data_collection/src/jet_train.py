@@ -23,14 +23,14 @@ import glob
 import os
 
 filename = datetime.datetime.now().strftime("data_%Y-%m-%d-%H.csv") #Define the filename
-filename='/media/nvidia/DB0B-650B/data/'+filename #hardcode the filename to the time of when the recording started for the hour
+filename='/media/nvidia/DB0D-650B/data/'+filename #hardcode the filename to the time of when the recording started for the hour
 filename_check=[filename] #change datatype to work for the boolean check for glob.glob
 datalist= ['image_name', 'left_encoder', 'right_encoder', 'left_speed', 'right_speed'] #create column labels
 
 global imagename
 
 global save_dir
-save_dir = "/media/nvidia/DB0B-650B/data/images/" #This saves to the external SD card on the JTX2
+save_dir = "/media/nvidia/DB0D-650B/data/images/" #This saves to the external SD card on the JTX2
 bridge = CvBridge()
 
 def csv_reader():
@@ -54,7 +54,7 @@ def csv_reader():
 def image_callback(image):
     global save_dir
     global imagename
-    imagename = datetime.datetime.now().strftime("/image_%Y_%m_%d_%I_%M_%S_%f.jpg") #Define the filename for image
+    imagename = datetime.datetime.now().strftime("/%Y_%m_%d_%I/image_%Y_%m_%d_%I_%M_%S_%f.jpg") #Define the filename for image
     
     try:
         cv2_img = bridge.imgmsg_to_cv2(image,"bgr8")
