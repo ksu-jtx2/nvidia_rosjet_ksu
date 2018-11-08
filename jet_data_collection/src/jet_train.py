@@ -13,6 +13,7 @@ This has been modified from 'test_time_sync.py" to function on the JTX2
 """
 import rospy
 import message_filters
+from std_msgs.msg import Int16
 from std_msgs.msg import Int64
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -26,6 +27,8 @@ filename = datetime.datetime.now().strftime("data_%Y-%m-%d-%H.csv") #Define the 
 filename='/media/nvidia/DB0D-650B/data/'+filename #hardcode the filename to the time of when the recording started for the hour
 filename_check=[filename] #change datatype to work for the boolean check for glob.glob
 datalist= ['image_name', 'left_encoder', 'right_encoder', 'left_speed', 'right_speed'] #create column labels
+global image_folder_date
+image_folder_date = datetime.datetime.now().strftime("%Y_%m_%d_%I")
 
 global imagename
 
@@ -54,7 +57,7 @@ def csv_reader():
 def image_callback(image):
     global save_dir
     global imagename
-    imagename = datetime.datetime.now().strftime("/%Y_%m_%d_%I/image_%Y_%m_%d_%I_%M_%S_%f.jpg") #Define the filename for image
+    imagename = datetime.datetime.now().strftime("%Y_%m_%d_%I/image_%Y_%m_%d_%I_%M_%S_%f.jpg") #Define the filename for image
     
     try:
         cv2_img = bridge.imgmsg_to_cv2(image,"bgr8")
@@ -68,14 +71,14 @@ def callback(image, left_encoder, right_encoder, left_speed, right_speed):
     global imagename
     image_callback(image)
     #print("yes received all") #debug
-    #convert from int64 to string to save to csv
+    #convert from Int16 to string to save to csv
     left_encoder = str(left_encoder)
     right_encoder = str(right_encoder)
     left_speed = str(left_speed)
     right_speed = str(right_speed)
     
     #for user debug
-    print(imagename[1:], left_encoder[6:], right_encoder[6:], left_speed[6:], right_speed[6:])
+    print(imagename, left_encoder[6:], right_encoder[6:], left_speed[6:], right_speed[6:])
     
     #save to csv, format to remove ROS formatting by treating the string as an array of elements, ex:
     #data: <number> -> <number>
@@ -86,8 +89,9 @@ def callback(image, left_encoder, right_encoder, left_speed, right_speed):
 
 def test_time_sub():
     global save_dir
-    if not os.path.exists(save_dir): #create save directiory
-        os.makedirs(save_dir)
+    global image_folder_date
+    if not os.path.exists(save_dir+image_folder_date): #create save directiory
+        os.makedirs(save_dir+image_folder_date)
         
     #run csv reader once
     csv_reader()
@@ -98,8 +102,8 @@ def test_time_sub():
     webcam_sub = message_filters.Subscriber("usb_cam/image_raw", Image)
     left_encoder_sub = message_filters.Subscriber("arduino/encoder_left_value", Int64)
     right_encoder_sub = message_filters.Subscriber("arduino/encoder_right_value", Int64)
-    left_speed_sub = message_filters.Subscriber("arduino/motor_left_speed", Int64)
-    right_speed_sub = message_filters.Subscriber("arduino/motor_right_speed", Int64)
+    left_speed_sub = message_filters.Subscriber("arduino/motor_left_speed", Int16)
+    right_speed_sub = message_filters.Subscriber("arduino/motor_right_speed", Int16)
     
     #Create object to collect all the subscribers and use the object ApproxTimeSync to grab data from roughly same timestamps
     ts = message_filters.ApproximateTimeSynchronizer([webcam_sub, left_encoder_sub, right_encoder_sub, left_speed_sub, right_speed_sub], 10, 0.1, allow_headerless=True)
