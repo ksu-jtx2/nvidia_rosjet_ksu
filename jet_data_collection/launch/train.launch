@@ -1,0 +1,4 @@
+<launch>
+  <node name="jet_train" pkg="jet_data_collection" type="jet_train.py" output="screen" >
+  </node>
+</launch>
