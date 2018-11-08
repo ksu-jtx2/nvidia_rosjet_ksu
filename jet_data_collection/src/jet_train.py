@@ -102,8 +102,8 @@ def test_time_sub():
     webcam_sub = message_filters.Subscriber("usb_cam/image_raw", Image)
     left_encoder_sub = message_filters.Subscriber("arduino/encoder_left_value", Int64)
     right_encoder_sub = message_filters.Subscriber("arduino/encoder_right_value", Int64)
-    left_speed_sub = message_filters.Subscriber("arduino/motor_left_speed", Int16)
-    right_speed_sub = message_filters.Subscriber("arduino/motor_right_speed", Int16)
+    left_speed_sub = message_filters.Subscriber("arduino/speed_left", Int64)
+    right_speed_sub = message_filters.Subscriber("arduino/speed_right", Int64)
     
     #Create object to collect all the subscribers and use the object ApproxTimeSync to grab data from roughly same timestamps
     ts = message_filters.ApproximateTimeSynchronizer([webcam_sub, left_encoder_sub, right_encoder_sub, left_speed_sub, right_speed_sub], 10, 0.1, allow_headerless=True)
