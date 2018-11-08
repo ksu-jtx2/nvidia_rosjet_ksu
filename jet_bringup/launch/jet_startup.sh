@@ -1,4 +1,4 @@
 #!/bin/bash
 
-roslaunch jet_bringup jet_rc.launch 
+roslaunch jet_bringup jet_train.launch 
 
