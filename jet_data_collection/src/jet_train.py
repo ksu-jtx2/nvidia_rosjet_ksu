@@ -8,6 +8,8 @@ ROS
 Python 2.7
 OpenCV 3.4
 
+See this page for datetime formatting: https://docs.python.org/2/library/datetime.html
+
 This has been modified from 'test_time_sync.py" to function on the JTX2
 @author: vinh
 """
@@ -23,12 +25,12 @@ import datetime
 import glob
 import os
 
-filename = datetime.datetime.now().strftime("data_%Y-%m-%d-%H.csv") #Define the filename
+filename = datetime.datetime.now().strftime("data_%Y-%m-%d-%H-%M.csv") #Define the filename
 filename='/media/nvidia/DB0D-650B/data/'+filename #hardcode the filename to the time of when the recording started for the hour
 filename_check=[filename] #change datatype to work for the boolean check for glob.glob
 datalist= ['image_name', 'left_encoder', 'right_encoder', 'left_speed', 'right_speed'] #create column labels
 global image_folder_date
-image_folder_date = datetime.datetime.now().strftime("%Y_%m_%d_%I")
+image_folder_date = datetime.datetime.now().strftime("%Y_%m_%d_%H-%M")
 
 global imagename
 
@@ -57,7 +59,10 @@ def csv_reader():
 def image_callback(image):
     global save_dir
     global imagename
-    imagename = datetime.datetime.now().strftime("%Y_%m_%d_%I/image_%Y_%m_%d_%I_%M_%S_%f.jpg") #Define the filename for image
+    imagename = datetime.datetime.now().strftime("%Y_%m_%d_%H/image_%Y_%m_%d_%H_%M_%S_%f.jpg") #Define the filename for image
+    # This filename has been placed into the function because we want to call a unique name for each jpg that is created
+    # So every time that the image callback function is called, a new filename for the new jpg is created
+    # Imagename is a global variable because it is used in another function to save the filename to a csv
     
     try:
         cv2_img = bridge.imgmsg_to_cv2(image,"bgr8")
